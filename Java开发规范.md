@@ -336,7 +336,7 @@ public void put(Elephant elephant,Fridge fridge);
 ```java
 正例：//TODO:calvin use xxx to replace yyy.
 
-        反例：//TODO: refactor it
+反例：//TODO: refactor it
 ```
 
 ----
@@ -375,14 +375,14 @@ public void put(Elephant elephant,Fridge fridge);
 
 ```java
 if(seldomHappenCase){
-        hanldMethod();
-        }
+    hanldMethod();
+}
 
-        try{
-        ...
-        }catch(SeldomHappenException e){
-        handleException();
-        }
+try{
+    ...
+}catch(SeldomHappenException e){
+    handleException();
+}
 ```
 
 ----
@@ -426,7 +426,7 @@ if(seldomHappenCase){
 Validate.isTrue(length>2,"length is "+keys.length+", less than 2",length);
 
 //RIGHT
-        Validate.isTrue(length>2,"length is %d, less than 2",length);
+Validate.isTrue(length>2,"length is %d, less than 2",length);
 ```
 
 ----
@@ -480,7 +480,7 @@ class A {
     void hello(ArrayList arrayList);
 }
 
-    List arrayList = new ArrayList();
+List arrayList = new ArrayList();
 
 // 下句调用的是hello(List list)，因为arrayList的定义类型是List
 a.hello(arrayList);  
@@ -525,7 +525,7 @@ encode)。
 
 ```java
 a.foo(b);     //WRONG
-        a.foo(b.bar); //RIGHT
+a.foo(b.bar); //RIGHT
 ```
 
 ----
@@ -556,12 +556,12 @@ Executor executor=new ThreadPoolBuilder().coreThread(10).queueLenth(100).build()
 
 ```java
 public A(){
-        A(DEFAULT_TIMEOUT);
-        }
+	A(DEFAULT_TIMEOUT);
+}
 
 public A(int timeout){
-        ...
-        }
+	...
+}
 ```
 
 ----
@@ -572,7 +572,7 @@ public A(int timeout){
 
 ```java
 Foo foo=new Foo();
-        foo.init();
+foo.init();
 ```
 
 ----
@@ -599,7 +599,7 @@ Foo foo=new Foo();
 Base base=new Children();
 
 // 下句实际调用的是父类的静态方法，虽然对象实例是子类的。
-        base.staticMethod();
+base.staticMethod();
 ```
 
 ----
@@ -613,7 +613,7 @@ Base base=new Children();
 ```java
 int i=objectA.staticMethod(); // WRONG
 
-        int i=ClassA.staticMethod(); // RIGHT
+int i=ClassA.staticMethod(); // RIGHT
 ```
 
 > [Sonar-2209: "static" members should be accessed statically](https://rules.sonarsource.com/java/RSPEC-2209)
@@ -636,8 +636,8 @@ int i=objectA.staticMethod(); // WRONG
 ```java
 // WRONG
 public void foo(){
-        ClassA.staticFiled=1;
-        }
+	ClassA.staticFiled=1;
+}
 ```
 
 > [Sonar-2696: Instance methods should not write to "static" fields](https://rules.sonarsource.com/java/RSPEC-2696)
@@ -727,7 +727,7 @@ public void foo(){
 ```java
 "test".equals(object);  //RIGHT
 
-        Objects.equals(object,"test"); //RIGHT
+Objects.equals(object,"test"); //RIGHT
 ```
 
 > [Sonar-1132: Strings literals should be placed on the left side when checking for equality](https://rules.sonarsource.com/java/RSPEC-1132)
@@ -784,8 +784,8 @@ obj.getA().getB().getC().hello();
 
 ```java
 if(a==b){
-        ...
-        }
+	...
+}
 ```
 
 例外：一般由IDE生成的equals()函数
@@ -799,9 +799,9 @@ if(a==b){
 
 ```java
 if(condition){
-        ...
-        return obj;
-        }
+	...
+  return obj;
+}
 
 // 接着写else的业务逻辑代码;
 ```
@@ -817,20 +817,20 @@ if(condition){
 通过抽取方法，或哨兵语句（见Rule 2）来减少嵌套。
 
 ```java
-public void applyDriverLicense(){
-        if(isTooYoung()){
+public void applyDriverLicense() {
+    if (isTooYoung()) {
         System.out.println("You are too young to apply driver license.");
         return;
-        }
+    }
 
-        if(isTooOld()){
+    if (isTooOld()) {
         System.out.println("You are too old to apply driver license.");
         return;
-        }
+    }
 
-        System.out.println("You've applied the driver license successfully.");
-        return;
-        }
+    System.out.println("You've applied the driver license successfully.");
+    return;
+}
 ```
 
 > [Sonar-134: Control flow statements "if", "for", "while", "switch" and "try" should not be nested too deeply](https://rules.sonarsource.com/java/RSPEC-134)
@@ -844,14 +844,14 @@ public void applyDriverLicense(){
 ```java
 //WRONG
 if((file.open(fileName,"w")!=null)&&(...)||(...)||(...)){
-        ...
-        }
+    ...
+}
 
 //RIGHT
-        boolean existed=(file.open(fileName,"w")!=null)&&(...)||(...);
-        if(existed||(...)){
-        ...
-        }
+boolean existed=(file.open(fileName,"w")!=null)&&(...)||(...);
+if(existed||(...)){
+    ...
+}
 ```
 
 > [Sonar-1067: Expressions should not be too complex](https://rules.sonarsource.com/java/RSPEC-1067)，增大为4
@@ -875,7 +875,7 @@ s!=null?s:"";
 if(!(x>=268){...}
 
 //RIGHT
-        if(x< 268){...}
+if(x< 268){...}
 ```
 
 > [Sonar-1940: Boolean checks should not be inverted](https://rules.sonarsource.com/java/RSPEC-1940)
@@ -887,7 +887,7 @@ if(!(x>=268){...}
 ```java
 if(maybeTrue()||maybeFalse()){...}
 
-        if(maybeFalse()&&maybeTrue()){...}
+if(maybeFalse()&&maybeTrue()){...}
 ```
 
 ----
@@ -900,20 +900,20 @@ if(maybeTrue()||maybeFalse()){...}
 2）在一个switch块内，都必须包含一个default语句并且放在最后，即使它什么代码也没有。
 
 ```java
-String animal="tomcat";
+String animal = "tomcat";
 
-        switch(animal){
-        case"cat":
+switch (animal) {
+    case "cat":
         System.out.println("It's a cat.");
         break;
-        case"lion": // 执行到tiger
-        case"tiger":
+    case "lion": // 执行到tiger
+    case "tiger":
         System.out.println("It's a beast.");
         break;
-default:
+    default:
         // 什么都不做，也要有default
         break;
-        }
+}
 ```
 
 > [Sonar: "switch" statements should end with "default" clauses](https://rules.sonarsource.com/java/RSPEC-131)
@@ -972,15 +972,15 @@ do-while语句要在循环最后才看到循环条件，不利于代码维护，
 
 ```java
 //WRONG, sum 类型为Long， i类型为long，每次相加都需要AutoBoxing。
-Long sum=0L;
+Long sum = 0L;
 
-        for(long i=0;i< 10000;i++){
-        sum+=i;
-        }
+for (long i = 0; i < 10000; i++) {
+    sum += i;
+}
 
 //RIGHT, 准确使用API返回正确的类型
-        Integer i=Integer.valueOf(str);
-        int i=Integer.parseInt(str);
+Integer i = Integer.valueOf(str);
+int i = Integer.parseInt(str);
 ```
 
 > [Sonar-2153: Boxing and unboxing should not be immediately reversed](https://rules.sonarsource.com/java/RSPEC-2153)
@@ -990,7 +990,7 @@ Long sum=0L;
 
 ```java
 // 如果intObject为null，产生NPE
-int i=intObject;
+int i = intObject;
 ```
 
 ----
@@ -1014,7 +1014,7 @@ int i=intObject;
 
 ```java
 //RIGHT
-if(counter1.get()==counter2.get()){...}
+if (counter1.get() == counter2.get()) {...}
 ```
 
 > [Sonar-2204: ".equals()" should not be used to test the values of "Atomic" classes](https://rules.sonarsource.com/java/RSPEC-2204)
@@ -1025,16 +1025,16 @@ if(counter1.get()==counter2.get()){...}
 因为精度问题，浮点数间的equals非常不可靠，在vjkit的NumberUtil中有对应的封装函数。
 
 ```java
-float f1=0.15f;
-        float f2=0.45f/3; //实际等于0.14999999
+float f1 = 0.15f;
+float f2 = 0.45f / 3; //实际等于0.14999999
 
 //WRONG
-        if(f1==f2){...}
-        if(Double.compare(f1,f2)==0)
+if (f1 == f2) {...}
+if (Double.compare(f1, f2) == 0)
 
 //RIGHT
-static final float EPSILON=0.00001f;
-        if(Math.abs(f1-f2)<EPSILON){...}
+static final float EPSILON = 0.00001f;
+if (Math.abs(f1 - f2) < EPSILON) {...}
 ```
 
 > [Sonar-1244: Floating point numbers should not be tested for equality](https://rules.sonarsource.com/java/RSPEC-1244)
@@ -1050,8 +1050,8 @@ static final float EPSILON=0.00001f;
 需要强制将除数或被除数转换为float或double。
 
 ```java
-double d=24/7;  //结果是3.0
-        double d=(double)24/7; //结果是正确的3.42857
+double d = 24 / 7;  //结果是3.0
+double d = (double) 24 / 7; //结果是正确的3.42857
 ```
 
 例子2： int与int相乘，哪怕被赋值给long，仍然会溢出。
@@ -1059,8 +1059,8 @@ double d=24/7;  //结果是3.0
 需要强制将乘数的一方转换为long。
 
 ```java
-long l=Integer.MAX_VALUE*2; // 结果是溢出的－2
-        long l=Integer.MAX_VALUE*2L; //结果是正确的4294967294
+long l = Integer.MAX_VALUE * 2; // 结果是溢出的－2
+long l = Integer.MAX_VALUE * 2L; //结果是正确的4294967294
 ```
 
 另外，int的最大值约21亿，留意可能溢出的情况。
@@ -1076,7 +1076,7 @@ long l=Integer.MAX_VALUE*2; // 结果是溢出的－2
 
 ```java
 -4%3=-1;
-        Math.abs(Integer.MIN_VALUE)=-2147483648;
+Math.abs(Integer.MIN_VALUE)=-2147483648;
 ```
 
 * Findbugs: Style - Remainder of hashCode could be negative
@@ -1084,9 +1084,9 @@ long l=Integer.MAX_VALUE*2; // 结果是溢出的－2
 **4.3【推荐】 double 或 float 计算时有不可避免的精度问题**
 
 ```java
-float f=0.45f/3;    //结果是0.14999999
-        double d1=0.45d/3;  //结果是正确的0.15
-        double d2=1.03d-0.42d; //结果是0.6100000000000001
+float f = 0.45f / 3;    //结果是0.14999999
+double d1 = 0.45d / 3;  //结果是正确的0.15
+double d2 = 1.03d - 0.42d; //结果是0.6100000000000001
 ```
 
 尽量用double而不用float，但如果是金融货币的计算，则必须使用如下选择：
@@ -1128,17 +1128,17 @@ public enum SeasonEnum {
 **6.1 【推荐】 当字符串拼接不在一个命令行内写完，而是存在多次拼接时(比如循环)，使用StringBuilder的append()**
 
 ```java
-String s="hello"+str1+str2;  //Almost OK，除非初始长度有问题，见第3点.
+String s = "hello" + str1 + str2;  //Almost OK，除非初始长度有问题，见第3点.
 
-        String s="hello";  //WRONG
-        if(condition){
-        s+=str1;
-        }
+String s = "hello";  //WRONG
+if (condition) {
+    s += str1;
+}
 
-        String str="start";       //WRONG
-        for(int i=0;i< 100;i++){
-        str=str+"hello";
-        }
+String str = "start";       //WRONG
+for (int i = 0; i < 100; i++) {
+    str = str + "hello";
+}
 ```
 
 反编译出的字节码文件显示，其实每条用`+`
@@ -1157,7 +1157,7 @@ String s="hello"+str1+str2;  //Almost OK，除非初始长度有问题，见第3
 str="result:"+myObject.toString();  // myObject为Null时，抛NPE
 
 //RIGHT
-        str="result:"+myObject;  // myObject为Null时，输出 result:null
+str="result:"+myObject;  // myObject为Null时，输出 result:null
 ```
 
 **6.3【强制】使用StringBuilder，而不是有所有方法都有同步修饰符的StringBuffer**
@@ -1182,9 +1182,9 @@ str="result:"+myObject.toString();  // myObject为Null时，抛NPE
 str.indexOf("e");
 
 //RIGHT
-        stringBuilder.append('a');
-        str.indexOf('e');
-        str.replace('m','z');
+stringBuilder.append('a');
+str.indexOf('e');
+str.replace('m','z');
 ```
 
 其他包括split等方法，在JDK String中未提供针对字符参数的方法，可考虑使用Apache Commons StringUtils 或Guava的Splitter。
@@ -1202,8 +1202,8 @@ str.indexOf("e");
 result="abc".matches("[a-zA-z]");
 
 //每次重新构造Pattern
-        Pattern pattern=Pattern.compile("[a-zA-z]");
-        result=pattern.matcher("abc").matches();
+Pattern pattern=Pattern.compile("[a-zA-z]");
+result=pattern.matcher("abc").matches();
 ```
 
 正例：
@@ -1213,7 +1213,7 @@ result="abc".matches("[a-zA-z]");
 private static Pattern pattern=Pattern.compile("[a-zA-z]");
         ...
 //真正使用Pattern的地方
-        result=pattern.matcher("abc").matches();
+result=pattern.matcher("abc").matches();
 ```
 
 ----
@@ -1251,20 +1251,20 @@ foreach代码一来代码简洁，二来有效避免了有多个循环或嵌套�
 
 ```java
 //WRONG
-for(String str:list){
-        if(condition){
+for (String str : list) {
+    if (condition) {
         list.remove(str);
-        }
-        }
+    }
+}
 
 //RIGHT
-        Iterator<String> it=list.iterator();
-        while(it.hasNext()){
-        String str=it.next();
-        if(condition){
+Iterator<String> it = list.iterator();
+while (it.hasNext()) {
+    String str = it.next();
+    if (condition) {
         it.remove();
-        }
-        }
+    }
+}
 ```
 
 > Facebook-Contrib: Correctness - Method modifies collection element while iterating
@@ -1340,23 +1340,23 @@ list)。
 
 ```java
 //WRONG
-E e=map.get(key);
-        if(e==null){
-        e=new E();
-        map.put(key,e); //仍然能两条线程并发执行put，互相覆盖
-        }
-        return e;
+E e = map.get(key);
+if (e == null) {
+    e = new E();
+    map.put(key, e); //仍然能两条线程并发执行put，互相覆盖
+}
+return e;
 
 //RIGHT 
-        E e=map.get(key);
-        if(e==null){
-        e=new E();
-        E previous=map.putIfAbsent(key,e);
-        if(previous!=null){
+E e = map.get(key);
+if (e == null) {
+    e = new E();
+    E previous = map.putIfAbsent(key, e);
+    if (previous != null) {
         return previous;
-        }
-        }
-        return e;
+    }
+}
+return e;
 ```
 
 ----
@@ -1369,32 +1369,32 @@ E e=map.get(key);
 1) 如果集合要被读取，定义成`<? extends T>`
 
 ```java
-Class Stack<E> {
-public void pushAll(Iterable< ?extends E> src){
-        for(E e:src){
-        push(e);
+Class Stack<E > {
+    public void pushAll (Iterable < ?extends E > src){
+        for (E e : src) {
+            push(e);
         }
-        }
-        }
+    }
+}
 
-        Stack<Number> stack=new Stack<Number>();
-        Iterable<Integer> integers=...;
-        stack.pushAll(integers);
+Stack<Number> stack = new Stack<Number>();
+Iterable<Integer> integers =...;
+stack.pushAll(integers);
 ```
 
 2) 如果集合要被写入，定义成`<? super T>`
 
 ```java
-Class Stack<E> {
-public void popAll(Collection< ? super E>dist){
-        while(!isEmpty())
-        dist.add(pop);
-        }
-        }
+Class Stack<E > {
+    public void popAll (Collection < ? super E > dist){
+        while (!isEmpty())
+            dist.add(pop);
+    }
+}
 
-        Stack<Number> stack=new Stack<Number>();
-        Collection<Object> objects=...;
-        stack.popAll(objects);
+Stack<Number> stack = new Stack<Number>();
+Collection<Object> objects =...;
+stack.popAll(objects);
 ```
 
 ----
@@ -1419,7 +1419,7 @@ public enum COLOR {
     RED, GREEN, BLUE, ORANGE;
 }
 
-    EnumMap<COLOR, String> moodMap = new EnumMap<COLOR, String>(COLOR.class);
+EnumMap<COLOR, String> moodMap = new EnumMap<COLOR, String>(COLOR.class);
 ```
 
 > [Sonar-1640: Maps with keys that are enum values should be replaced with EnumMap](https://rules.sonarsource.com/java/RSPEC-1640)
@@ -1431,13 +1431,13 @@ public enum COLOR {
 ```java
 // list -> array，构造数组时不需要设定大小
 String[]array=(String[])list.toArray(); //WRONG;
-        String[]array=list.toArray(new String[0]); //RIGHT
-        String[]array=list.toArray(new String[list.size()]); //RIGHT，但list.size()可用0代替。
+String[]array=list.toArray(new String[0]); //RIGHT
+String[]array=list.toArray(new String[list.size()]); //RIGHT，但list.size()可用0代替。
 
 
 // array -> list
-        List list=Arrays.asList(array); //WRONG
-        List list=new ArrayList(array); //RIGHT
+List list=Arrays.asList(array); //WRONG
+List list=new ArrayList(array); //RIGHT
 ```
 
 Arrays.asList(array)，如果array是原始类型数组如int[]，会把整个array当作List的一个元素，String[] 或 Foo[]则无此问题，安全起见统一不使用。
@@ -1456,7 +1456,7 @@ Arrays.asList(array)，如果array是原始类型数组如int[]，会把整个ar
 
 ```java
 Thread t=new Thread();
-        t.setName("cleanup-thread");
+t.setName("cleanup-thread");
 ```
 
 2） 线程池则使用guava或自行封装的ThreadFactory，指定命名规则。
@@ -1465,7 +1465,7 @@ Thread t=new Thread();
 //guava 或自行封装的ThreadFactory
 ThreadFactory threadFactory=new ThreadFactoryBuilder().setNameFormat(threadNamePrefix+"-%d").build();
 
-        ThreadPoolExecutor executor=new ThreadPoolExecutor(...,threadFactory,...);
+ThreadPoolExecutor executor=new ThreadPoolExecutor(...,threadFactory,...);
 ```
 
 ----
@@ -1477,7 +1477,7 @@ ThreadFactory threadFactory=new ThreadFactoryBuilder().setNameFormat(threadNameP
 ```java
 //WRONG
 Thread thread=new Thread(...);
-        thread.start();
+thread.start();
 ```
 
 同理，定时器也不要使用Timer，而应该使用ScheduledExecutorService。
@@ -1529,20 +1529,20 @@ Thread.stop()不推荐使用，强行的退出太不安全，会导致逻辑不�
 因此，如下的代码无法中断线程:
 
 ```java
-public void run(){
+public void run () {
 
-        while(true){ //WRONG，无判断线程状态。
+    while (true) { //WRONG，无判断线程状态。
         sleep();
-        }
+    }
 
-public void sleep(){
-        try{
-        Thread.sleep(1000);
-        }catch(InterruptedException e){
-        logger.warn("Interrupted!",e); //WRONG，吃掉了异常，interrupt状态未再传递
+    public void sleep () {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            logger.warn("Interrupted!", e); //WRONG，吃掉了异常，interrupt状态未再传递
         }
-        }
-        }
+    }
+}
 ```
 
 **5.1 正确处理InterruptException**
@@ -1554,13 +1554,13 @@ public void sleep(){
 
 ```java
 //RIGHT
-public void myMethod(){
-        try{
+public void myMethod () {
+    try {
         ...
-        }catch(InterruptedException e){
+    } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
-        }
-        }
+    }
+}
 ```
 
 > [Sonar-2142: "InterruptedException" should not be ignored](https://rules.sonarsource.com/java/RSPEC-2142)
@@ -1571,15 +1571,15 @@ public void myMethod(){
 
 ```java
 //RIGHT
-public void run(){
-        try{
-        while(!Thread.isInterrupted()){
-        // do stuff
+public void run () {
+    try {
+        while (!Thread.isInterrupted()) {
+            // do stuff
         }
-        }catch(InterruptedException e){
-        logger.warn("Interrupted!",e);
-        }
-        }
+    } catch (InterruptedException e) {
+        logger.warn("Interrupted!", e);
+    }
+}
 ```
 
 其他如Thread.sleep()的代码，在正式sleep前也会判断线程状态。
@@ -1617,22 +1617,22 @@ executor.execute(ThreadPoolUtil.safeRunner(runner));
 ThreadLocal变量需要定义成static，并在每次使用前重置。
 
 ```java
-private static final ThreadLocal<MessageDigest> SHA1_DIGEST=new ThreadLocal<MessageDigest>(){
-@Override
-protected MessageDigest initialValue(){
-        try{
-        return MessageDigest.getInstance("SHA");
-        }catch(NoSuchAlgorithmException e){
-        throw new RuntimeException("...",e);
+private static final ThreadLocal<MessageDigest> SHA1_DIGEST = new ThreadLocal<MessageDigest>() {
+    @Override
+    protected MessageDigest initialValue() {
+        try {
+            return MessageDigest.getInstance("SHA");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("...", e);
         }
-        }
-        };
+    }
+};
 
-public void digest(byte[]input){
-        MessageDigest digest=SHA1_DIGEST.get();
-        digest.reset();
-        return digest.digest(input);
-        }
+public void digest ( byte[] input){
+    MessageDigest digest = SHA1_DIGEST.get();
+    digest.reset();
+    return digest.digest(input);
+}
 ```
 
 > [Sonar-2885: Non-thread-safe fields should not be static](https://rules.sonarsource.com/java/RSPEC-2885)
@@ -1647,31 +1647,31 @@ public void digest(byte[]input){
 
 ```java
 //锁整个方法，等价于整个方法体内synchronized(this)
-public synchronized boolean foo(){
-        }
+public synchronized boolean foo () {
+}
 
 //锁区块方法，仅对需要保护的原子操作的连续代码块进行加锁。
-public boolean foo(){
-synchronized (this){
+public boolean foo () {
+    synchronized (this) {
         ...
         ...
-        }
-        //other stuff
-        }
+    }
+    //other stuff
+}
 ```
 
 2）能用对象锁，就不要用类锁。
 
 ```java
 //对象锁，只影响使用同一个对象加锁的线程
-synchronized (this){
-        ...
-        }
+synchronized (this) {
+    ...
+}
 
 //类锁，使用类对象作为锁对象，影响所有线程。
-synchronized (A.class){
-        ...
-        }
+synchronized (A.class) {
+    ...
+}
 ```
 
 ----
@@ -1740,9 +1740,9 @@ private static class LazyObjectHolder {
     static final LazyObject instance = new LazyObject();
 }
 
-    public void myMethod() {
-        LazyObjectHolder.instance.doSomething();
-    }
+public void myMethod() {
+    LazyObjectHolder.instance.doSomething();
+}
 ```
 
 > [Sonar-2168: Double-checked locking should not be used](https://rules.sonarsource.com/java/RSPEC-2168)
@@ -1761,16 +1761,16 @@ private static class LazyObjectHolder {
 
 ```java
 //WRONG
-try{
-        return obj.method();
-        }catch(NullPointerException e){
-        return false;
-        }
+try {
+    return obj.method();
+} catch (NullPointerException e) {
+    return false;
+}
 
 //RIGHT
-        if(obj==null){
-        return false;
-        }
+if (obj == null) {
+    return false;
+}
 ```
 
 > [Sonar-1696: "NullPointerException" should not be caught](https://rules.sonarsource.com/java/RSPEC-1696)
@@ -1788,11 +1788,11 @@ try{
 下例定义静态异常，并简单定义一层的StackTrace。`ExceptionUtil`见vjkit。
 
 ```java
-private static RuntimeException TIMEOUT_EXCEPTION=ExceptionUtil.setStackTrace(new RuntimeException("Timeout"),
-        MyClass.class,"mymethod");
-        ...
+private static RuntimeException TIMEOUT_EXCEPTION = ExceptionUtil.setStackTrace(new RuntimeException("Timeout"),
+        MyClass.class, "mymethod");
+...
 
-        throw TIMEOUT_EXCEPTION;
+throw TIMEOUT_EXCEPTION;
 ```
 
 2） 如果异常的message会变化，则对静态的异常实例进行clone()再修改message。
@@ -1800,10 +1800,9 @@ private static RuntimeException TIMEOUT_EXCEPTION=ExceptionUtil.setStackTrace(ne
 Exception默认不是Cloneable的，`CloneableException`见vjkit。
 
 ```java
-private static CloneableException TIMEOUT_EXCEPTION=new CloneableException("Timeout").setStackTrace(My.class,
-        "hello");
-        ...
-        throw TIMEOUT_EXCEPTION.clone("Timeout for 40ms");
+private static CloneableException TIMEOUT_EXCEPTION = new CloneableException("Timeout").setStackTrace(My.class, "hello");
+...
+throw TIMEOUT_EXCEPTION.clone("Timeout for 40ms");
 ```
 
 3）自定义异常，也可以考虑重载fillStackTrace()为空函数，但相对没那么灵活，比如无法按场景指定一层的StackTrace。
@@ -1828,11 +1827,11 @@ XXX来传递Exception，如果底层代码改动，将影响所有上层函数�
 ```java
 //WRONG
 new TimeoutException("timeout");
-        logger.error(e.getMessage(),e);
+logger.error(e.getMessage(),e);
 
 //RIGHT
-        new TimeoutException("timeout:"+eclapsedTime+", configuration:"+configTime);
-        logger.error("user["+userId+"] expired:"+e.getMessage(),e);
+new TimeoutException("timeout:"+eclapsedTime+", configuration:"+configTime);
+logger.error("user["+userId+"] expired:"+e.getMessage(),e);
 ```
 
 * Facebook-Contrib: Style - Method throws exception with static message string
@@ -1864,11 +1863,11 @@ new TimeoutException("timeout");
 **6.2【推荐】多个异常的处理逻辑一致时，使用JDK7的语法避免重复代码**
 
 ```java
-try{
-        ...
-        }catch(AException|BException|CException ex){
-        handleException(ex);
-        }
+try {
+...
+} catch (AException | BException | CException ex) {
+    handleException(ex);
+}
 ```
 
 > [Sonar-2147: Catches should be combined](https://rules.sonarsource.com/java/RSPEC-2147)
@@ -1883,18 +1882,18 @@ try{
 
 ```java
 //WRONG
-try{
-        ……
-        }catch(Exception e){
-
-        }
+try {
+    ……
+} catch (Exception e) {
+    
+}
 
 //RIGHT
-        try{
-        ……
-        }catch(Exception ignoredExcetpion){
-        //continue the loop
-        }
+try {
+  ……
+} catch (Exception ignoredExcetpion) {
+    //continue the loop
+}
 ```
 
 **7.2 【强制】异常处理不能吞掉原异常，要么在日志打印，要么在重新抛出的异常里包含原异常**
@@ -1904,11 +1903,11 @@ try{
 throw new MyException("message");
 
 //RIGHT 记录日志后抛出新异常，向上次调用者屏蔽底层异常
-        logger.error("message",ex);
-        throw new MyException("message");
+logger.error("message",ex);
+throw new MyException("message");
 
 //RIGHT 传递底层异常
-        throw new MyException("message",ex); 
+throw new MyException("message",ex); 
 ```
 
 > [Sonar-1166: Exception handlers should preserve the original exceptions](https://rules.sonarsource.com/java/RSPEC-1166)
@@ -1929,28 +1928,28 @@ throw new MyException("message");
 
 ```java
 try(Writer writer=...){
-        writer.append(content);
-        }
+  writer.append(content);
+}
 ```
 
 **8.2 【强制】如果处理过程中有抛出异常的可能，也要做try-catch，否则finally块中抛出的异常，将代替try块中抛出的异常**
 
 ```java
 //WRONG
-try{
-        ...
-        throw new TimeoutException();
-        }finally{
-        file.close();//如果file.close()抛出IOException, 将代替TimeoutException
-        }
+try {
+...
+    throw new TimeoutException();
+} finally {
+    file.close();//如果file.close()抛出IOException, 将代替TimeoutException
+}
 
 //RIGHT, 在finally块中try－catch
-        try{
-        ...
-        throw new TimeoutException();
-        }finally{
-        IOUtil.closeQuietly(file); //该方法中对所有异常进行了捕获
-        }
+try {
+...
+    throw new TimeoutException();
+} finally {
+    IOUtil.closeQuietly(file); //该方法中对所有异常进行了捕获
+}
 ```
 
 > [Sonar-1163: Exceptions should not be thrown in finally blocks](https://rules.sonarsource.com/java/RSPEC-1163)
@@ -1960,19 +1959,19 @@ try{
 
 ```java
 //WRONG
-try{
-        ...
-        return 1;
-        }finally{
-        return 2; //实际return 2 而不是1
-        }
+try {
+...
+    return 1;
+} finally {
+    return 2; //实际return 2 而不是1
+}
 
-        try{
-        ...
-        throw TimeoutException();
-        }finally{
-        return 2; //实际return 2 而不是TimeoutException
-        }
+try {
+...
+    throw TimeoutException();
+} finally {
+    return 2; //实际return 2 而不是TimeoutException
+}
 ```
 
 > [Sonar-1143: Jump statements should not occur in "finally" blocks](https://rules.sonarsource.com/java/RSPEC-1143)
@@ -2013,12 +2012,12 @@ logger.debug("Processing trade with id: {} symbol : {} ",id,symbol);
 
 ```java
 //WRONG
-logger.debug("Processing trade with id: {} symbol : {} ",id,symbol.getMessage());
+logger.debug("Processing trade with id: {} symbol : {} ", id, symbol.getMessage());
 
 //RIGHT
-        if(logger.isDebugEnabled()){
-        logger.debug("Processing trade with id: "+id+" symbol: "+symbol.getMessage());
-        }
+if (logger.isDebugEnabled()) {
+    logger.debug("Processing trade with id: " + id + " symbol: " + symbol.getMessage());
+}
 ```
 
 ----
@@ -2034,7 +2033,7 @@ Slf4j的占位符并没有魔术，每次输出日志都要进行占位符的查
 logger.info("I am a business log with id: "+id+" symbol: "+symbol);
 
 //RIGHT
-        logger.warn("Processing trade with id: "+id+" symbol: "+symbol);
+logger.warn("Processing trade with id: "+id+" symbol: "+symbol);
 ```
 
 ----
@@ -2088,7 +2087,7 @@ error级别只记录系统逻辑出错、异常或重要的错误信息。
 ```java
  //WRONG
  String key="Id#taobao_"+tradeId;
-         cache.put(key,value);
+ cache.put(key,value);
 ```
 
 例外：-1,0,1,2,3 不认为是魔法数
@@ -2115,13 +2114,13 @@ error级别只记录系统逻辑出错、异常或重要的错误信息。
 
 ```java
 //WRONG
-Foo foo=new Foo();
+Foo foo = new Foo();
 
-        if(ok){
-        return;
-        }
+if (ok) {
+    return;
+}
 
-        foo.bar();
+foo.bar();
 ```
 
 ----
@@ -2131,8 +2130,8 @@ Foo foo=new Foo();
 ```java
 //WRONG
 fooBar.fChar=barFoo.lchar='c';
-        argv++;argc--;
-        int level,size;
+argv++;argc--;
+int level,size;
 ```
 
 > [Sonar-1659: Multiple variables should not be declared on the same line](https://rules.sonarsource.com/java/RSPEC-1659)
@@ -2154,14 +2153,14 @@ Java在JIT后并不比C代码慢，JNI方法因为要反复跨越JNI与Java的�
 
 ```java
 //用于对同一个方法多次调用
-private Method method=....
+private Method method =....
 
-public void foo(){
-        method.invoke(obj,args);
-        }
+public void foo () {
+    method.invoke(obj, args);
+}
 
 //用于仅会对同一个方法单次调用
-        ReflectionUtils.invoke(obj,methodName,args);
+ReflectionUtils.invoke(obj, methodName, args);
 ```
 
 ----

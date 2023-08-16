@@ -276,7 +276,10 @@ int width;
 **Rule 2. 【推荐】通过更清晰的代码来避免注释**
 
 在编写注释前，考虑是否可以通过更好的命名，更清晰的代码结构，更好的函数和变量的抽取，让代码不言自明，此时不需要额外的注释。
+
 ----
+
+
 
 **Rule 3. 【推荐】删除空注释，无意义注释**
 
@@ -310,6 +313,7 @@ public void put(Elephant elephant,Fridge fridge);
 **Rule 6. 【强制】类、类成员变量、类方法的注释必须使用Javadoc规范，使用`/**xxx*/`格式，不得使用`//xxx`方式**
 
 正确的JavaDoc格式可以用在很多地方，比如在IDE中，查看调用方法时，不进入方法即可悬浮提示方法、参数、返回值的意义，提高阅读效率。
+
 ----
 
 **Rule 7. 【推荐】JavaDoc中不要为了HTML格式化而大量使用HTML标签和转义字符**
@@ -330,11 +334,9 @@ public void put(Elephant elephant,Fridge fridge);
 通过标记扫描，经常清理此类标记，线上故障经常来源于这些标记但未处理的代码。
 
 ```java
-正例：
-        //TODO:calvin use xxx to replace yyy.
+正例：//TODO:calvin use xxx to replace yyy.
 
-        反例：
-//TODO: refactor it
+        反例：//TODO: refactor it
 ```
 
 ----
@@ -422,6 +424,7 @@ if(seldomHappenCase){
 ```java
 //WRONG
 Validate.isTrue(length>2,"length is "+keys.length+", less than 2",length);
+
 //RIGHT
         Validate.isTrue(length>2,"length is %d, less than 2",length);
 ```
@@ -474,7 +477,6 @@ JDK8的Optional类的使用这里不展开。
 ```java
 class A {
     void hello(List list);
-
     void hello(ArrayList arrayList);
 }
 
@@ -987,8 +989,8 @@ Long sum=0L;
 **2.2 【推荐】自动拆箱有可能产生NPE，要注意处理**
 
 ```java
-//如果intObject为null，产生NPE
-int i=intObject; 
+// 如果intObject为null，产生NPE
+int i=intObject;
 ```
 
 ----
@@ -1082,13 +1084,9 @@ long l=Integer.MAX_VALUE*2; // 结果是溢出的－2
 **4.3【推荐】 double 或 float 计算时有不可避免的精度问题**
 
 ```java
-
 float f=0.45f/3;    //结果是0.14999999
-
         double d1=0.45d/3;  //结果是正确的0.15
-
         double d2=1.03d-0.42d; //结果是0.6100000000000001
-
 ```
 
 尽量用double而不用float，但如果是金融货币的计算，则必须使用如下选择：
@@ -1266,7 +1264,7 @@ for(String str:list){
         if(condition){
         it.remove();
         }
-        } 
+        }
 ```
 
 > Facebook-Contrib: Correctness - Method modifies collection element while iterating
@@ -1371,10 +1369,11 @@ E e=map.get(key);
 1) 如果集合要被读取，定义成`<? extends T>`
 
 ```java
-Class Stack<E>{
-public void pushAll(Iterable<?extends E> src){
-        for(E e:src)
+Class Stack<E> {
+public void pushAll(Iterable< ?extends E> src){
+        for(E e:src){
         push(e);
+        }
         }
         }
 
@@ -1386,8 +1385,8 @@ public void pushAll(Iterable<?extends E> src){
 2) 如果集合要被写入，定义成`<? super T>`
 
 ```java
-Class Stack<E>{
-public void popAll(Collection<? super E>dist){
+Class Stack<E> {
+public void popAll(Collection< ? super E>dist){
         while(!isEmpty())
         dist.add(pop);
         }
@@ -1648,11 +1647,12 @@ public void digest(byte[]input){
 
 ```java
 //锁整个方法，等价于整个方法体内synchronized(this)
-public synchronized boolean foo(){};
+public synchronized boolean foo(){
+        }
 
 //锁区块方法，仅对需要保护的原子操作的连续代码块进行加锁。
 public boolean foo(){
-synchronized(this){
+synchronized (this){
         ...
         ...
         }
@@ -1664,12 +1664,12 @@ synchronized(this){
 
 ```java
 //对象锁，只影响使用同一个对象加锁的线程
-synchronized(this){
+synchronized (this){
         ...
         }
 
 //类锁，使用类对象作为锁对象，影响所有线程。
-synchronized(A.class){
+synchronized (A.class){
         ...
         }
 ```
@@ -1770,7 +1770,7 @@ try{
 //RIGHT
         if(obj==null){
         return false;
-        }     
+        }
 ```
 
 > [Sonar-1696: "NullPointerException" should not be caught](https://rules.sonarsource.com/java/RSPEC-1696)
@@ -1790,7 +1790,6 @@ try{
 ```java
 private static RuntimeException TIMEOUT_EXCEPTION=ExceptionUtil.setStackTrace(new RuntimeException("Timeout"),
         MyClass.class,"mymethod");
-
         ...
 
         throw TIMEOUT_EXCEPTION;
@@ -1803,9 +1802,7 @@ Exception默认不是Cloneable的，`CloneableException`见vjkit。
 ```java
 private static CloneableException TIMEOUT_EXCEPTION=new CloneableException("Timeout").setStackTrace(My.class,
         "hello");
-
         ...
-
         throw TIMEOUT_EXCEPTION.clone("Timeout for 40ms");
 ```
 
@@ -1832,7 +1829,6 @@ XXX来传递Exception，如果底层代码改动，将影响所有上层函数�
 //WRONG
 new TimeoutException("timeout");
         logger.error(e.getMessage(),e);
-
 
 //RIGHT
         new TimeoutException("timeout:"+eclapsedTime+", configuration:"+configTime);
@@ -1888,11 +1884,14 @@ try{
 ```java
 //WRONG
 try{
+        ……
         }catch(Exception e){
+
         }
 
 //RIGHT
         try{
+        ……
         }catch(Exception ignoredExcetpion){
         //continue the loop
         }
@@ -2130,7 +2129,7 @@ Foo foo=new Foo();
 **Rule 4. 【推荐】不要像C那样一行里做多件事情**
 
 ```java
- //WRONG
+//WRONG
 fooBar.fChar=barFoo.lchar='c';
         argv++;argc--;
         int level,size;
